@@ -92,17 +92,6 @@ export const data = {
       thumbnail: "/projects/startup-predictor.jpg",
       video: "",
     },
-    {
-      title: "Portfolio Version 1.0 | Classic Developer Showcase",
-      href: "https://github.com/thatvivekhingu/Portfolio-Version-1.0",
-      dates: "2024",
-      active: true,
-      type: "Web Application & Portfolio Showcase",
-      technologies: ["React", "HTML5", "CSS3", "JavaScript", "Responsive UI"],
-      description: "Original personal portfolio v1.0 showcase. Tagline: 'If my work inspires a conversation, collaboration, or opportunity, then this portfolio has already done its job.'",
-      thumbnail: "/projects/portfolio-v1.svg",
-      video: "",
-    },
   ] as ProjectItem[],
 
   certificates: [
