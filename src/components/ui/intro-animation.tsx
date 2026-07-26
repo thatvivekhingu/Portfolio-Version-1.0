@@ -23,7 +23,7 @@ export function IntroAnimation() {
   // Session storage check
   useEffect(() => {
     try {
-      const hasSeen = sessionStorage.getItem("hasSeenIntro_4dx_v2");
+      const hasSeen = sessionStorage.getItem("hasSeenIntro_4dx_v3");
       if (hasSeen === "true") {
         setShouldShow(false);
       } else {
@@ -34,7 +34,7 @@ export function IntroAnimation() {
     }
   }, []);
 
-  // 4DX Cinema Slow & Readable Timeline Engine
+  // 4DX Cinema Timeline Engine
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
@@ -47,42 +47,42 @@ export function IntroAnimation() {
         timer = setTimeout(() => {
           setQuestionChars((prev) => prev + 1);
           playTapSound("hover");
-        }, 75); // Slow, deliberate typing speed
+        }, 70);
       } else {
-        // Pause 1000ms after question, then move to first role
+        // Pause 900ms after question, then move to first role
         timer = setTimeout(() => {
           setCurrentIndex(1);
           playTapSound("pop");
-        }, 1000);
+        }, 900);
       }
       return () => clearTimeout(timer);
     }
 
-    // Index 1 to 4: Single line 4DX role cards (2.2 seconds per card for easy reading)
+    // Index 1 to 4: Single line 4DX role cards (1.6s display per card)
     if (currentIndex >= 1 && currentIndex <= 4) {
       timer = setTimeout(() => {
         setCurrentIndex((prev) => prev + 1);
         playTapSound("pop");
-      }, 2200); // 2.2 seconds display per card
+      }, 1600); // 1.6 seconds display per card
       return () => clearTimeout(timer);
     }
 
-    // Index 5: Real High-Tech ACCESS GRANTED Security Clearance
+    // Index 5: ACCESS GRANTED (2.6s hold for deep security authorization feel)
     if (currentIndex === 5) {
       playTapSound("chime");
       timer = setTimeout(() => {
         setIsTransitioning(true);
         setTimeout(() => {
           handleComplete();
-        }, 1000);
-      }, 1800); // Hold ACCESS GRANTED badge for 1.8 seconds
+        }, 1100);
+      }, 2600); // Hold ACCESS GRANTED badge for 2.6 seconds
       return () => clearTimeout(timer);
     }
   }, [shouldShow, currentIndex, questionChars, isComplete]);
 
   const handleComplete = () => {
     try {
-      sessionStorage.setItem("hasSeenIntro_4dx_v2", "true");
+      sessionStorage.setItem("hasSeenIntro_4dx_v3", "true");
     } catch {
       // Ignore storage errors
     }
@@ -104,10 +104,20 @@ export function IntroAnimation() {
       {!isComplete && (
         <motion.div
           key="intro-viewport"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: isTransitioning ? 0 : 1, scale: isTransitioning ? 1.06 : 1 }}
+          initial={{ opacity: 1, clipPath: "circle(150% at 50% 50%)" }}
+          animate={
+            isTransitioning
+              ? {
+                  opacity: [1, 1, 0],
+                  clipPath: "circle(0% at 50% 50%)",
+                }
+              : {
+                  opacity: 1,
+                  clipPath: "circle(150% at 50% 50%)",
+                }
+          }
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black text-[#F8FAFC] select-none overflow-hidden"
         >
           {/* Deep Anamorphic Cinematic Flares */}
@@ -140,14 +150,14 @@ export function IntroAnimation() {
                 </motion.div>
               )}
 
-              {/* Single Line Role Cards (Slower Pacing & High Contrast) */}
+              {/* Single Line Role Cards (1.6s Optimal Pacing) */}
               {currentIndex >= 1 && currentIndex <= 4 && (
                 <motion.div
                   key={activeCard.id}
                   initial={{ opacity: 0, y: 35, scale: 0.92, filter: "blur(10px)" }}
                   animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
                   exit={{ opacity: 0, y: -35, scale: 1.08, filter: "blur(12px)" }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                   className="flex flex-col items-center space-y-4"
                 >
                   <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-100 drop-shadow-[0_0_40px_rgba(255,255,255,0.4)]">
@@ -159,7 +169,7 @@ export function IntroAnimation() {
                 </motion.div>
               )}
 
-              {/* Authentic High-Tech Security Clearance Card */}
+              {/* Authentic High-Tech Security Clearance Card (2.6s Hold) */}
               {currentIndex === 5 && (
                 <motion.div
                   key="granted-card"
@@ -183,13 +193,13 @@ export function IntroAnimation() {
             </AnimatePresence>
           </div>
 
-          {/* Anamorphic Laser Line Transition */}
+          {/* Center Iris Shutter Opening Pulse */}
           {isTransitioning && (
             <motion.div
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: [0, 1, 0], opacity: [0, 1, 0] }}
-              transition={{ duration: 0.9, ease: "easeInOut" }}
-              className="absolute inset-x-0 top-1/2 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_30px_rgba(0,240,255,1)] pointer-events-none"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: [0, 8, 25], opacity: [0, 0.9, 0] }}
+              transition={{ duration: 1.1, ease: "easeOut" }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-tr from-cyan-400 via-emerald-400 to-white shadow-[0_0_100px_rgba(0,240,255,1)] pointer-events-none"
             />
           )}
         </motion.div>
