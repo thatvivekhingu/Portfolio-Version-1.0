@@ -6,6 +6,7 @@ import Achievements from "@/components/home/achievements"
 import Earth from "@/components/home/earth"
 import { BlurFade } from "@/components/ui/blur-fade";
 import { getSunsetPhotos } from "@/lib/sunsets";
+import { IntroAnimation } from "@/components/ui/intro-animation";
 
 const BLUR_FADE_DELAY = 0.005;
 
@@ -14,6 +15,7 @@ export default async function Home() {
 
   return (
     <div className="relative min-h-screen w-full bg-background">
+      <IntroAnimation />
       <div className="mx-auto flex max-w-5xl flex-col space-y-12 sm:space-y-32 px-4">
         <BlurFade delay={BLUR_FADE_DELAY} inView>
           <section id="hero" className="scroll-mt-24 sm:scroll-mt-28">
