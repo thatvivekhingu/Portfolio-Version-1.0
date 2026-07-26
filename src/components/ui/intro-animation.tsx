@@ -4,45 +4,18 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { playTapSound } from "@/lib/sound";
 
-interface IntroItem {
-  type?: "question" | "role" | "granted";
-  text: string;
-  gradient?: string;
-  glowColor?: string;
-}
-
-const INTRO_SEQUENCE: IntroItem[] = [
-  { type: "question", text: "> Who am I?" },
-  {
-    type: "role",
-    text: "AI/ML Engineer",
-    gradient: "from-cyan-400 via-sky-400 to-indigo-500",
-    glowColor: "rgba(56, 189, 248, 0.5)",
-  },
-  {
-    type: "role",
-    text: "Content Creator",
-    gradient: "from-amber-400 via-yellow-400 to-orange-500",
-    glowColor: "rgba(245, 158, 11, 0.5)",
-  },
-  {
-    type: "role",
-    text: "Hackathon Addict",
-    gradient: "from-rose-400 via-pink-500 to-purple-600",
-    glowColor: "rgba(244, 63, 94, 0.5)",
-  },
-  {
-    type: "role",
-    text: "Tech Explorer",
-    gradient: "from-emerald-400 via-teal-400 to-cyan-500",
-    glowColor: "rgba(52, 211, 153, 0.5)",
-  },
-  { type: "granted", text: "Access Granted." },
+const INTRO_CARDS = [
+  { id: "q", text: "> Who am I?", isQuestion: true },
+  { id: "aiml", title: "AI/ML Engineer", sub: "Autonomous Systems & Models" },
+  { id: "creator", title: "Content Creator", sub: "Sharing Tech & AI Knowledge" },
+  { id: "hackathon", title: "Hackathon Addict", sub: "Building Under Pressure" },
+  { id: "explorer", title: "Tech Explorer", sub: "Pushing Frontiers" },
+  { id: "granted", title: "ACCESS GRANTED.", isGranted: true },
 ];
 
 export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean | null>(null);
-  const [step, setStep] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [questionChars, setQuestionChars] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
@@ -50,7 +23,7 @@ export function IntroAnimation() {
   // Session storage check
   useEffect(() => {
     try {
-      const hasSeen = sessionStorage.getItem("hasSeenIntro_v3");
+      const hasSeen = sessionStorage.getItem("hasSeenIntro_4dx");
       if (hasSeen === "true") {
         setShouldShow(false);
       } else {
@@ -61,55 +34,55 @@ export function IntroAnimation() {
     }
   }, []);
 
-  // Sequence Controller
+  // 4DX Cinema Single-Line Timeline Engine
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
     let timer: NodeJS.Timeout;
 
-    // Step 0: Type out "> Who am I?"
-    if (step === 0) {
-      const fullQ = INTRO_SEQUENCE[0].text;
-      if (questionChars < fullQ.length) {
+    // Index 0: Typing out "> Who am I?"
+    if (currentIndex === 0) {
+      const qText = INTRO_CARDS[0].text;
+      if (questionChars < qText.length) {
         timer = setTimeout(() => {
           setQuestionChars((prev) => prev + 1);
           playTapSound("hover");
-        }, 60);
+        }, 55);
       } else {
-        // Pause 600ms after question before revealing roles
+        // Pause 700ms after question, then move to first role
         timer = setTimeout(() => {
-          setStep(1);
+          setCurrentIndex(1);
           playTapSound("pop");
-        }, 600);
+        }, 700);
       }
       return () => clearTimeout(timer);
     }
 
-    // Step 1 to 4: Reveal Roles one by one
-    if (step >= 1 && step <= 4) {
+    // Index 1 to 4: Single line 4DX role cards (appear -> pause -> next)
+    if (currentIndex >= 1 && currentIndex <= 4) {
       timer = setTimeout(() => {
-        setStep((prev) => prev + 1);
+        setCurrentIndex((prev) => prev + 1);
         playTapSound("pop");
-      }, 700); // 700ms interval between roles
+      }, 1100); // Display each single line for 1.1s before swapping
       return () => clearTimeout(timer);
     }
 
-    // Step 5: "Access Granted."
-    if (step === 5) {
+    // Index 5: ACCESS GRANTED
+    if (currentIndex === 5) {
       playTapSound("chime");
       timer = setTimeout(() => {
         setIsTransitioning(true);
         setTimeout(() => {
           handleComplete();
-        }, 1000);
-      }, 1100);
+        }, 900);
+      }, 1200);
       return () => clearTimeout(timer);
     }
-  }, [shouldShow, step, questionChars, isComplete]);
+  }, [shouldShow, currentIndex, questionChars, isComplete]);
 
   const handleComplete = () => {
     try {
-      sessionStorage.setItem("hasSeenIntro_v3", "true");
+      sessionStorage.setItem("hasSeenIntro_4dx", "true");
     } catch {
       // Ignore storage errors
     }
@@ -123,94 +96,100 @@ export function IntroAnimation() {
 
   if (shouldShow === null || !shouldShow || isComplete) return null;
 
-  const questionText = INTRO_SEQUENCE[0].text.slice(0, questionChars);
+  const activeCard = INTRO_CARDS[currentIndex];
+  const questionText = INTRO_CARDS[0].text.slice(0, questionChars);
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 1 }}
-        animate={{ opacity: isTransitioning ? 0 : 1, scale: isTransitioning ? 1.05 : 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-zinc-950 text-foreground select-none overflow-hidden"
-      >
-        {/* Subtle Ambient Theme Background Glows */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-tr from-cyan-500/15 via-indigo-500/15 to-amber-500/15 rounded-full blur-3xl opacity-70 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none" />
-
-        {/* Skip Button */}
-        <button
-          onClick={handleSkip}
-          className="absolute top-6 right-6 z-50 px-3.5 py-1.5 rounded-full border border-border/80 bg-zinc-900/80 backdrop-blur-md text-xs font-mono text-muted-foreground hover:text-amber-400 hover:border-amber-500/40 hover:bg-zinc-900 transition-all duration-300 shadow-lg"
+    <AnimatePresence mode="wait">
+      {!isComplete && (
+        <motion.div
+          key="intro-viewport"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: isTransitioning ? 0 : 1, scale: isTransitioning ? 1.06 : 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black text-[#F8FAFC] select-none overflow-hidden"
         >
-          Skip Intro →
-        </button>
+          {/* Deep 4DX Anamorphic Ambient Specular Flares */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-r from-cyan-500/10 via-slate-400/10 to-indigo-500/10 rounded-full blur-[100px] pointer-events-none opacity-60" />
+          <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:32px_32px] opacity-25 pointer-events-none" />
 
-        {/* Main Content Box */}
-        <div className="relative z-10 w-full max-w-2xl px-6 flex flex-col items-center justify-center space-y-6 text-center">
-          {/* Question Prompt */}
-          <div className="flex items-center text-lg sm:text-2xl font-mono text-amber-400 font-bold tracking-wide">
-            <span>{questionText}</span>
-            {step === 0 && (
-              <span className="inline-block w-2.5 h-5 sm:h-6 ml-2 bg-amber-400 animate-pulse shadow-[0_0_10px_rgba(245,158,11,0.8)]" />
-            )}
-          </div>
+          {/* 4DX Skip Button */}
+          <button
+            onClick={handleSkip}
+            className="absolute top-6 right-6 z-50 px-4 py-1.5 rounded-full border border-white/10 bg-black/60 backdrop-blur-md text-xs font-mono text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 hover:bg-black/90 transition-all duration-300 shadow-2xl"
+          >
+            Skip Intro →
+          </button>
 
-          {/* Roles Stack */}
-          <div className="flex flex-col items-center space-y-3 sm:space-y-4 w-full pt-2">
-            {INTRO_SEQUENCE.slice(1, 5).map((item, idx) => {
-              const itemStepIndex = idx + 1;
-              if (step < itemStepIndex) return null;
-
-              return (
+          {/* 4DX Single-Line Stage Container */}
+          <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-center min-h-[220px] text-center">
+            <AnimatePresence mode="wait">
+              {/* Question Phase */}
+              {currentIndex === 0 && (
                 <motion.div
-                  key={item.text}
-                  initial={{ opacity: 0, y: 16, scale: 0.92 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="w-full flex items-center justify-center"
+                  key="question-card"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15, scale: 0.95 }}
+                  transition={{ duration: 0.4 }}
+                  className="flex items-center text-xl sm:text-3xl font-mono text-cyan-400 font-bold tracking-wider"
                 >
-                  <span
-                    className={`text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}
-                    style={{
-                      filter: `drop-shadow(0 0 24px ${item.glowColor})`,
-                    }}
-                  >
-                    {item.text}
-                  </span>
+                  <span>{questionText}</span>
+                  <span className="inline-block w-3 h-6 sm:h-7 ml-2 bg-cyan-400 animate-pulse shadow-[0_0_12px_rgba(0,240,255,0.9)]" />
                 </motion.div>
-              );
-            })}
+              )}
+
+              {/* Single Line Role Cards (One by One) */}
+              {currentIndex >= 1 && currentIndex <= 4 && (
+                <motion.div
+                  key={activeCard.id}
+                  initial={{ opacity: 0, y: 30, scale: 0.92, filter: "blur(8px)" }}
+                  animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -30, scale: 1.08, filter: "blur(12px)" }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-col items-center space-y-3"
+                >
+                  <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-100 drop-shadow-[0_0_35px_rgba(255,255,255,0.35)]">
+                    {activeCard.title}
+                  </h2>
+                  <p className="text-xs sm:text-sm font-mono text-cyan-400/80 tracking-widest uppercase">
+                    — {activeCard.sub} —
+                  </p>
+                </motion.div>
+              )}
+
+              {/* Access Granted Final Card */}
+              {currentIndex === 5 && (
+                <motion.div
+                  key="granted-card"
+                  initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="flex flex-col items-center space-y-3"
+                >
+                  <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-cyan-950/60 border border-cyan-500/50 backdrop-blur-md shadow-[0_0_40px_rgba(0,240,255,0.5)]">
+                    <span className="h-2.5 w-2.5 rounded-full bg-cyan-400 animate-ping" />
+                    <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.3em] text-cyan-300 uppercase">
+                      ACCESS GRANTED.
+                    </span>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Access Granted Badge */}
-          {step >= 5 && (
+          {/* Anamorphic 4DX Laser Line Transition */}
+          {isTransitioning && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.85, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="pt-6"
-            >
-              <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-950/80 border border-emerald-500/50 backdrop-blur-md shadow-[0_0_30px_rgba(16,185,129,0.4)]">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-                <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-emerald-300 uppercase">
-                  Access Granted.
-                </span>
-              </div>
-            </motion.div>
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: [0, 1, 0], opacity: [0, 1, 0] }}
+              transition={{ duration: 0.85, ease: "easeInOut" }}
+              className="absolute inset-x-0 top-1/2 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_25px_rgba(0,240,255,1)] pointer-events-none"
+            />
           )}
-        </div>
-
-        {/* Transition Laser Pulse */}
-        {isTransitioning && (
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: [0, 1, 0], opacity: [0, 1, 0] }}
-            transition={{ duration: 0.9, ease: "easeInOut" }}
-            className="absolute inset-x-0 top-1/2 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_20px_rgba(34,211,238,0.9)] pointer-events-none"
-          />
-        )}
-      </motion.div>
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 }
