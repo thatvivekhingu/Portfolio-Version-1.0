@@ -4,7 +4,16 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { playTapSound } from "@/lib/sound";
 
-const INTRO_CARDS = [
+interface IntroCardItem {
+  id: string;
+  text?: string;
+  title?: string;
+  sub?: string;
+  isQuestion?: boolean;
+  isGranted?: boolean;
+}
+
+const INTRO_CARDS: IntroCardItem[] = [
   { id: "q", text: "> Who am I?", isQuestion: true },
   { id: "aiml", title: "AI/ML Engineer", sub: "Autonomous Systems & Neural Models" },
   { id: "creator", title: "Content Creator", sub: "Sharing Tech & AI Knowledge" },
@@ -42,7 +51,7 @@ export function IntroAnimation() {
 
     // Index 0: Typing out "> Who am I?"
     if (currentIndex === 0) {
-      const qText = INTRO_CARDS[0].text;
+      const qText = INTRO_CARDS[0]?.text ?? "> Who am I?";
       if (questionChars < qText.length) {
         timer = setTimeout(() => {
           setQuestionChars((prev) => prev + 1);
@@ -96,8 +105,8 @@ export function IntroAnimation() {
 
   if (shouldShow === null || !shouldShow || isComplete) return null;
 
-  const activeCard = INTRO_CARDS[currentIndex];
-  const questionText = INTRO_CARDS[0].text.slice(0, questionChars);
+  const activeCard = INTRO_CARDS[currentIndex] ?? INTRO_CARDS[0];
+  const questionText = (INTRO_CARDS[0]?.text ?? "> Who am I?").slice(0, questionChars);
 
   return (
     <AnimatePresence mode="wait">
@@ -161,10 +170,10 @@ export function IntroAnimation() {
                   className="flex flex-col items-center space-y-4"
                 >
                   <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-100 drop-shadow-[0_0_40px_rgba(255,255,255,0.4)]">
-                    {activeCard.title}
+                    {activeCard.title ?? ""}
                   </h2>
                   <p className="text-xs sm:text-base font-mono text-cyan-400/90 tracking-widest uppercase">
-                    — {activeCard.sub} —
+                    — {activeCard.sub ?? ""} —
                   </p>
                 </motion.div>
               )}
