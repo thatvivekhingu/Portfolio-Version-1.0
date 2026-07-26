@@ -78,7 +78,7 @@ export const data = {
       type: "Machine Learning Application",
       technologies: ["Python", "Pandas", "Scikit-learn", "Cosine Similarity", "NumPy"],
       description: "Built a machine learning-based recommendation system using Cosine Similarity algorithms. Performed data cleaning, preprocessing, and exploratory data analysis on large datasets using Pandas to deliver personalized book recommendations based on user reading patterns.",
-      thumbnail: "/projects/book-recommender.svg",
+      thumbnail: "/projects/book-recommender.jpg",
       video: "",
     },
     {
@@ -89,7 +89,7 @@ export const data = {
       type: "Machine Learning & Predictive Analytics",
       technologies: ["Python", "Scikit-learn", "Pandas", "NumPy", "Predictive Analytics", "Machine Learning"],
       description: "Developed a machine learning prediction system designed to evaluate startup growth potential, funding success indicators, and market trends using data-driven classification algorithms.",
-      thumbnail: "/projects/startup-predictor.svg",
+      thumbnail: "/projects/startup-predictor.jpg",
       video: "",
     },
     {
