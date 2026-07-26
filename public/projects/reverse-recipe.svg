@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="recipeBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#311042"/>
+    </linearGradient>
+    <linearGradient id="recipeAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#recipeBg)"/>
+  
+  <!-- Subtle Grid Pattern -->
+  <g opacity="0.08" stroke="#ffffff" stroke-width="1">
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40"/>
+    </pattern>
+    <rect width="800" height="450" fill="url(#grid)"/>
+  </g>
+
+  <!-- Glowing Central Orb -->
+  <circle cx="400" cy="225" r="140" fill="#f59e0b" opacity="0.12" filter="blur(40px)"/>
+
+  <!-- Recipe Icon Motif -->
+  <g transform="translate(400, 180) scale(1.4)" opacity="0.95">
+    <path d="M -30 -20 Q 0 -40 30 -20 L 25 30 Q 0 45 -25 30 Z" fill="none" stroke="url(#recipeAccent)" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M -15 -5 C -5 -15 5 -15 15 -5" fill="none" stroke="#f59e0b" stroke-width="3"/>
+    <circle cx="0" cy="10" r="4" fill="#ec4899"/>
+  </g>
+
+  <!-- Title Badge -->
+  <rect x="200" y="295" width="400" height="45" rx="22.5" fill="#1e293b" opacity="0.9" stroke="url(#recipeAccent)" stroke-width="1.5"/>
+  <text x="400" y="323" font-family="system-ui, sans-serif" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">
+    🍳 REVERSE RECIPE ENGINE • GEMINI AI
+  </text>
+</svg>

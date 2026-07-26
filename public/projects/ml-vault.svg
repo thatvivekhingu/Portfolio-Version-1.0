@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <rect width="600" height="400" rx="20" fill="#09090b"/>
+  <defs>
+    <linearGradient id="mvGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" rx="20" fill="url(#mvGlow)"/>
+  <circle cx="300" cy="200" r="90" fill="#18181b" stroke="#c084fc" stroke-width="4"/>
+  <text x="300" y="215" font-family="sans-serif" font-size="52" font-weight="bold" fill="#c084fc" text-anchor="middle">ML Vault</text>
+</svg>

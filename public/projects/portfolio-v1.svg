@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <defs>
+    <linearGradient id="v1Bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="50%" stop-color="#161b22" />
+      <stop offset="100%" stop-color="#090d16" />
+    </linearGradient>
+
+    <linearGradient id="v1Glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="750" fill="url(#v1Bg)" />
+
+  <!-- Ambient Glow -->
+  <circle cx="600" cy="300" r="240" fill="#8b5cf6" opacity="0.12" filter="blur(80px)" />
+
+  <!-- Outer Window Panel -->
+  <rect x="100" y="80" width="1000" height="590" rx="20" fill="#161b22" fill-opacity="0.9" stroke="#30363d" stroke-width="2" />
+
+  <!-- Header Bar -->
+  <rect x="100" y="80" width="1000" height="60" rx="20" fill="#21262d" />
+  <circle cx="140" cy="110" r="7" fill="#ef4444" />
+  <circle cx="164" cy="110" r="7" fill="#f59e0b" />
+  <circle cx="188" cy="110" r="7" fill="#10b981" />
+  
+  <text x="600" y="117" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#c9d1d9" text-anchor="middle" letter-spacing="1">
+    PORTFOLIO VERSION 1.0 | VIVEK HINGU
+  </text>
+
+  <!-- Center Content Box -->
+  <g transform="translate(200, 200)">
+    <rect width="800" height="360" rx="16" fill="#0d1117" stroke="#30363d" stroke-width="1.5" />
+    
+    <text x="400" y="90" font-family="system-ui, sans-serif" font-size="32" font-weight="800" fill="#f0f6fc" text-anchor="middle">
+      Portfolio Version 1.0
+    </text>
+
+    <!-- Quote Banner -->
+    <rect x="60" y="140" width="680" height="90" rx="12" fill="#161b22" stroke="url(#v1Glow)" stroke-width="1.5" />
+    
+    <text x="400" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="#e6edf3" text-anchor="middle" font-style="italic">
+      "If my work inspires a conversation, collaboration, or opportunity,"
+    </text>
+    <text x="400" y="208" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#a855f7" text-anchor="middle">
+      then this portfolio has already done its job.
+    </text>
+
+    <rect x="300" y="270" width="200" height="44" rx="10" fill="url(#v1Glow)" />
+    <text x="400" y="298" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">View GitHub Repository</text>
+  </g>
+</svg>
