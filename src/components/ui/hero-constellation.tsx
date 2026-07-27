@@ -93,7 +93,7 @@ function AnimatedDots({ desktopDots = 1500, mobileDots = 250 }: { desktopDots?: 
           pushVx: 0,
           pushVy: 0,
           radius: 0.5 + Math.random() * 0.6,
-          baseOpacity: 0.5 + Math.random() * 0.5,
+          baseOpacity: 0.15 + Math.random() * 0.25,
           phase: Math.random() * Math.PI * 2,
           pulseSpeed: 0.0008 + Math.random() * 0.0015,
           color: colors[Math.floor(Math.random() * colors.length)],
@@ -160,7 +160,7 @@ function AnimatedDots({ desktopDots = 1500, mobileDots = 250 }: { desktopDots?: 
         ctx!.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
         const isDark = document.documentElement.classList.contains("dark");
         const rgb = isDark ? "255, 255, 255" : "30, 30, 30";
-        ctx!.fillStyle = `rgba(${rgb}, ${opacity * vignette * (isDark ? 0.7 : 1)})`;
+        ctx!.fillStyle = `rgba(${rgb}, ${opacity * vignette * (isDark ? 0.3 : 0.45)})`;
         ctx!.fill();
       }
 

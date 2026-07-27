@@ -91,13 +91,13 @@ export async function GET() {
     }
   }
 
-  // Graceful fallback track for Vivek Hingu's portfolio
+  // Graceful fallback track for Vivek Hingu's portfolio (Yalgaar by CarryMinati & Wily Frenzy)
   return NextResponse.json({
     isPlaying: false,
-    title: "Starboy",
-    artist: "The Weeknd",
-    album: "Starboy",
-    albumImageUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=300&fit=crop",
-    songUrl: "https://open.spotify.com/track/7lQWRAjy9FAY3irPevrg8M",
+    title: "Yalgaar",
+    artist: "Ajey Nagar (CarryMinati), Wily Frenzy",
+    album: "Yalgaar (Original)",
+    albumImageUrl: "https://i.scdn.co/image/ab67616d0000b273ce729233cd521c983f779d51",
+    songUrl: "https://open.spotify.com/track/0RGp4KA9wvndxqPIWoKwnD",
   });
 }

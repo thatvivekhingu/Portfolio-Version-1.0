@@ -78,7 +78,7 @@ export function IntroAnimation() {
 
     // Index 5: ACCESS GRANTED (2.6s hold for deep security authorization feel)
     if (currentIndex === 5) {
-      playTapSound("chime");
+      playTapSound("access_granted");
       timer = setTimeout(() => {
         setIsTransitioning(true);
         setTimeout(() => {

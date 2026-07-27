@@ -116,8 +116,8 @@ export function Globe({
       };
     };
 
-    const v1 = toVec(AHMEDABAD.lat, AHMEDABAD.lng);
-    const v2 = toVec(BANGALORE.lat, BANGALORE.lng);
+    const v1 = toVec(BANGALORE.lat, BANGALORE.lng);
+    const v2 = toVec(AHMEDABAD.lat, AHMEDABAD.lng);
     const dotProd = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
     const omega = Math.acos(Math.max(-1, Math.min(1, dotProd)));
     const sinOmega = Math.sin(omega);

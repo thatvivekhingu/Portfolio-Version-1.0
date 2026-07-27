@@ -4,7 +4,7 @@
  * Web Audio API synthesizer for tactile sound effects on touch/click.
  * Pure browser JS — zero external audio assets required.
  */
-export function playTapSound(type: "pop" | "chime" | "hover" | "click" = "pop") {
+export function playTapSound(type: "pop" | "chime" | "hover" | "click" | "access_granted" = "pop") {
   if (typeof window === "undefined") return;
 
   try {
@@ -27,7 +27,18 @@ export function playTapSound(type: "pop" | "chime" | "hover" | "click" = "pop") 
 
     const now = ctx.currentTime;
 
-    if (type === "pop" || type === "click") {
+    if (type === "access_granted") {
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+      osc.frequency.exponentialRampToValueAtTime(1320, now + 0.35);
+
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+      osc.start(now);
+      osc.stop(now + 0.35);
+    } else if (type === "pop" || type === "click") {
       osc.type = "sine";
       osc.frequency.setValueAtTime(520, now);
       osc.frequency.exponentialRampToValueAtTime(840, now + 0.06);

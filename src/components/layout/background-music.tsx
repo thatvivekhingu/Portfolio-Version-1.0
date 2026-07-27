@@ -4,8 +4,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { IconMusic, IconVolume, IconVolumeOff } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 
-// High-quality royalty-free ambient Lo-Fi track for portfolio listening
-const MUSIC_URL = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3";
+// High-energy upbeat synthwave rocking track for portfolio listening
+const MUSIC_URL = "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a14f24.mp3?filename=synthwave-80s-110045.mp3";
 
 export function BackgroundMusic() {
   const [isPlaying, setIsPlaying] = useState(false);

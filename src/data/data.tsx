@@ -1,4 +1,4 @@
-import { IconHome, IconBrandGithub, IconBrush, IconBriefcase2, IconBrandLinkedin, IconMail, IconAward, IconPhone } from "@tabler/icons-react"
+import { IconHome, IconBrandGithub, IconBrush, IconBriefcase2, IconBrandLinkedin, IconMail, IconAward } from "@tabler/icons-react"
 
 export interface ProjectItem {
   title: string;
@@ -169,12 +169,6 @@ export const data = {
   ] as AchievementItem[],
 
   contact: [
-    {
-      href: "tel:+918866688575",
-      label: "+91 88666 88575",
-      icon: <IconPhone className="h-5 w-5" />,
-      aria: "Phone",
-    },
     {
       href: "mailto:hinguvivek05@gmail.com",
       label: "Email",

@@ -7,7 +7,7 @@ import { HeroConstellation } from "@/components/ui/hero-constellation";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ShimmerBorder } from "@/components/ui/shimmer-border";
-import { IconArrowRight } from "@tabler/icons-react";
+import { IconArrowRight, IconFileText } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import {
   AnimatedName,
@@ -158,25 +158,37 @@ export default function Hero() {
                 <div className="z-50 flex flex-row items-center justify-center gap-5">
                   <ContactIcons wiggleIcon={wiggleIcon} handleIconClick={handleIconClick} />
                   <span className="h-5 w-px bg-zinc-300/60 dark:bg-zinc-700/60" aria-hidden />
-                  <a
-                    ref={ctaRef}
-                    onMouseMove={handleCtaMove}
-                    onClick={() => playTapSound("pop")}
-                    href="#projects"
-                    className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-background/40 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-secondary-foreground transition-colors hover:text-foreground"
-                  >
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
-                      style={{
-                        background:
-                          "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
-                      }}
-                    />
-                    <span className="relative">View my work</span>
-                    <IconArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                    <ShimmerBorder />
-                  </a>
+                  <div className="flex items-center gap-3">
+                    <a
+                      ref={ctaRef}
+                      onMouseMove={handleCtaMove}
+                      onClick={() => playTapSound("pop")}
+                      href="#projects"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-background/40 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-secondary-foreground transition-colors hover:text-foreground"
+                    >
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                        style={{
+                          background:
+                            "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                        }}
+                      />
+                      <span className="relative">View my work</span>
+                      <IconArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      <ShimmerBorder />
+                    </a>
+                    <a
+                      href="/resume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => playTapSound("chime")}
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-cyan-500/40 bg-cyan-950/30 backdrop-blur-sm px-4 py-1.5 text-sm font-semibold text-cyan-300 transition-all hover:text-white hover:border-cyan-400 hover:bg-cyan-900/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
+                    >
+                      <IconFileText className="relative h-4 w-4 text-cyan-400" />
+                      <span className="relative">Resume</span>
+                    </a>
+                  </div>
                 </div>
               </BlurFade>
             </div>
