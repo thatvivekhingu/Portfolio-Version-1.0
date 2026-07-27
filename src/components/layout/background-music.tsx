@@ -17,12 +17,40 @@ export function BackgroundMusic() {
     setMounted(true);
     const audio = new Audio(MUSIC_URL);
     audio.loop = true;
-    audio.volume = 0.4;
+    audio.volume = 0.45;
     audioRef.current = audio;
+
+    // Try automatic play on load
+    const playAudio = () => {
+      audio
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch(() => {
+          // Autoplay blocked by browser until user gesture
+        });
+    };
+
+    playAudio();
+
+    // Instant playback on first user click or tap anywhere
+    const handleFirstInteraction = () => {
+      if (audio.paused) {
+        playAudio();
+      }
+    };
+
+    window.addEventListener("pointerdown", handleFirstInteraction, { once: true });
+    window.addEventListener("keydown", handleFirstInteraction, { once: true });
+    window.addEventListener("click", handleFirstInteraction, { once: true });
 
     return () => {
       audio.pause();
       audioRef.current = null;
+      window.removeEventListener("pointerdown", handleFirstInteraction);
+      window.removeEventListener("keydown", handleFirstInteraction);
+      window.removeEventListener("click", handleFirstInteraction);
     };
   }, []);
 
