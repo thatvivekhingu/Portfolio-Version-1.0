@@ -135,7 +135,7 @@ export default function Hero() {
 
             <div className="w-full space-y-6">
               <BlurFade delay={0.005 * 1} inView>
-                <p className="z-50 subpixel-antialiased leading-[1.8] text-5xl sm:text-7xl font-bold text-center whitespace-nowrap">
+                <p className="z-50 subpixel-antialiased leading-[1.3] text-3xl sm:text-6xl md:text-7xl font-bold text-center whitespace-normal sm:whitespace-nowrap px-2">
                   <span className="inline-block pb-2 bg-gradient-to-b from-zinc-200 dark:from-zinc-50 to-zinc-950 dark:to-zinc-300 bg-clip-text text-transparent">
                     Hi, I&#39;m{" "}
                     <AnimatedName
@@ -146,7 +146,7 @@ export default function Hero() {
                     />
                   </span>
                 </p>
-                <p className="text-base subpixel-antialiased tracking-tight font-medium sm:text-2xl text-center text-secondary-foreground">
+                <p className="text-sm tracking-tight font-medium sm:text-2xl text-center text-secondary-foreground px-4">
                   AI & ML Engineer building{" "}
                   <span className="font-script font-normal text-[1.05em] leading-none align-baseline text-secondary-foreground">
                     intelligent software
@@ -155,16 +155,16 @@ export default function Hero() {
                 </p>
               </BlurFade>
               <BlurFade delay={0.005 * 2} direction="down" inView>
-                <div className="z-50 flex flex-row items-center justify-center gap-5">
+                <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
                   <ContactIcons wiggleIcon={wiggleIcon} handleIconClick={handleIconClick} />
-                  <span className="h-5 w-px bg-zinc-300/60 dark:bg-zinc-700/60" aria-hidden />
-                  <div className="flex items-center gap-3">
+                  <span className="hidden sm:inline-block h-5 w-px bg-zinc-300/60 dark:bg-zinc-700/60" aria-hidden />
+                  <div className="flex items-center gap-2.5 sm:gap-3">
                     <a
                       ref={ctaRef}
                       onMouseMove={handleCtaMove}
                       onClick={() => playTapSound("pop")}
                       href="#projects"
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-background/40 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-secondary-foreground transition-colors hover:text-foreground"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-background/40 backdrop-blur-sm px-4 py-1.5 text-xs sm:text-sm font-medium text-secondary-foreground transition-colors hover:text-foreground"
                     >
                       <span
                         aria-hidden
@@ -175,7 +175,7 @@ export default function Hero() {
                         }}
                       />
                       <span className="relative">View my work</span>
-                      <IconArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      <IconArrowRight className="relative h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-1" />
                       <ShimmerBorder />
                     </a>
                     <a
@@ -183,9 +183,9 @@ export default function Hero() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => playTapSound("chime")}
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-cyan-500/40 bg-cyan-950/30 backdrop-blur-sm px-4 py-1.5 text-sm font-semibold text-cyan-300 transition-all hover:text-white hover:border-cyan-400 hover:bg-cyan-900/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-cyan-500/40 bg-cyan-950/30 backdrop-blur-sm px-4 py-1.5 text-xs sm:text-sm font-semibold text-cyan-300 transition-all hover:text-white hover:border-cyan-400 hover:bg-cyan-900/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
                     >
-                      <IconFileText className="relative h-4 w-4 text-cyan-400" />
+                      <IconFileText className="relative h-3.5 w-3.5 sm:h-4 sm:w-4 text-cyan-400" />
                       <span className="relative">Resume</span>
                     </a>
                   </div>
