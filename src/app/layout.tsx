@@ -4,7 +4,6 @@ import { Geist, Geist_Mono, Pacifico } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { BackgroundMusic } from "@/components/layout/background-music";
 import { data } from "@/data/data";
 import Image from "next/image";
 import { Analytics } from "@vercel/analytics/next";
@@ -92,7 +91,6 @@ export default function RootLayout({
             />
             {children}
             <Footer />
-            <BackgroundMusic />
           </ThemeProvider>
           <Analytics />
         </body>

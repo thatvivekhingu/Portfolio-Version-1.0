@@ -179,7 +179,7 @@ export default function Hero() {
                       <ShimmerBorder />
                     </a>
                     <a
-                      href="/resume.pdf"
+                      href="/resume.png"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => playTapSound("chime")}
