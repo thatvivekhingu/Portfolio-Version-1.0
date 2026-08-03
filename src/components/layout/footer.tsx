@@ -11,7 +11,7 @@ import { AnimatedLogo } from "@/components/ui/logo-animation";
 import { useGitHubStars } from "@/hooks/useGitHubStars";
 import { data } from "@/data/data";
 
-const FALLBACK_REPO_URL = "https://github.com/thatvivekhingu/portfolio-website";
+const FALLBACK_REPO_URL = "https://github.com/thatvivekhingu/thatvivekhingu-PFL";
 
 export const Footer = () => {
     const [sent, setSent] = useState(false);

@@ -15,7 +15,7 @@ import { CommandPaletteButton } from "../command-palette/command-palette-button"
 import { IconBrandGithub, IconStar } from "@tabler/icons-react";
 import { useGitHubStars } from "@/hooks/useGitHubStars";
 
-const FALLBACK_REPO_URL = "https://github.com/thatvivekhingu/portfolio-website";
+const FALLBACK_REPO_URL = "https://github.com/thatvivekhingu/thatvivekhingu-PFL";
 // import Link from "next/link";
 // import Image from "next/image";
 

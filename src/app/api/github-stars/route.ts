@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const GITHUB_REPO = process.env.GITHUB_REPO ?? 'thatvivekhingu/portfolio-website';
+const GITHUB_REPO = process.env.GITHUB_REPO ?? 'thatvivekhingu/thatvivekhingu-PFL';
 
 interface RepoResponse {
   stargazers_count: number;

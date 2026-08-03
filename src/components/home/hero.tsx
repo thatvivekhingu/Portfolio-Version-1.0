@@ -17,6 +17,7 @@ import {
   type Phase,
   type Suffix,
 } from "@/components/ui/animated-name";
+import { VisitorBadge } from "@/components/ui/visitor-badge";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Tooltip,
@@ -131,6 +132,9 @@ export default function Hero() {
                   {status}
                 </span>
               </ShimmerButton>
+              <div className="mt-3 flex justify-center">
+                <VisitorBadge />
+              </div>
             </div>
 
             <div className="w-full space-y-6">
@@ -179,7 +183,7 @@ export default function Hero() {
                       <ShimmerBorder />
                     </a>
                     <a
-                      href="/resume.png"
+                      href="/resume.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => playTapSound("chime")}
