@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   description: "Personal portfolio of Vivek Hingu, AI/ML Engineer and Full-Stack Developer specializing in machine learning, voice systems, and modern web applications.",
   icons: {
     icon: [
-      { url: "/logo/logo.svg", type: "image/svg+xml" },       
+      { url: "/logo/personal-logo.jpg", type: "image/jpeg" },       
       { url: "/favicon-196.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon.ico" },
     ],
