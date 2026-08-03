@@ -1,39 +1,60 @@
 "use client";
 
-// import { Button } from "@/components/ui/button";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
 import { useState } from "react";
-
+import { playTapSound } from "@/lib/sound";
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
   const [isToggling, setIsToggling] = useState(false);
 
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent<SVGSVGElement>) => {
+    playTapSound("chime");
+    setIsToggling(true);
+    setTimeout(() => setIsToggling(false), 600);
+
     const next = theme === "dark" ? "light" : "dark";
 
-    // Triggers the spin-grow keyframe (500ms, defined in tailwind.config.js).
-    const spinIcon = () => {
-      setIsToggling(true);
-      setTimeout(() => setIsToggling(false), 500);
-    };
+    const x = e.clientX;
+    const y = e.clientY;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
 
     const doc = document as Document & {
-      startViewTransition?: (cb: () => unknown) => { finished: Promise<void> };
+      startViewTransition?: (cb: () => unknown) => { finished: Promise<void>; ready: Promise<void> };
     };
 
     if (typeof doc.startViewTransition !== "function") {
       setTheme(next);
-      spinIcon();
       return;
     }
 
-    // Run the view transition first so the page palette cross-fades, THEN
-    // spin the now-visible icon. Otherwise the cross-fade snapshot freezes
-    // the icon mid-spin and the animation reads as a flicker.
-    const transition = doc.startViewTransition(() => setTheme(next));
-    transition.finished.then(spinIcon).catch(() => spinIcon());
+    const transition = doc.startViewTransition(() => {
+      setTheme(next);
+    });
+
+    transition.ready.then(() => {
+      const clipPath = [
+        `circle(0px at ${x}px ${y}px)`,
+        `circle(${endRadius}px at ${x}px ${y}px)`,
+      ];
+      document.documentElement.animate(
+        {
+          clipPath: theme === "dark" ? clipPath : [...clipPath].reverse(),
+        },
+        {
+          duration: 650,
+          easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+          pseudoElement:
+            theme === "dark"
+              ? "::view-transition-new(root)"
+              : "::view-transition-old(root)",
+        }
+      );
+    });
   };
 
   return (
@@ -41,7 +62,7 @@ export function ModeToggle() {
       {/* Sun Icon for Light Mode */}
       <IconSun
         onClick={handleToggle}
-        className={`absolute cursor-pointer h-5 w-5 text-zinc-500 dark:text-zinc-300 dark:hidden hover:text-zinc-950 transition-transform duration-500 ${
+        className={`absolute cursor-pointer h-5 w-5 text-amber-500 dark:text-zinc-300 dark:hidden hover:text-amber-400 transition-all duration-300 hover:scale-125 ${
           isToggling ? "animate-spin-grow" : ""
         }`}
         aria-label="Switch to Light Mode"
@@ -50,7 +71,7 @@ export function ModeToggle() {
       {/* Moon Icon for Dark Mode */}
       <IconMoonStars
         onClick={handleToggle}
-        className={`absolute cursor-pointer h-5 w-5 hidden text-zinc-500 dark:block dark:text-zinc-300 hover:text-zinc-50 transition-transform duration-500 ${
+        className={`absolute cursor-pointer h-5 w-5 hidden text-indigo-400 dark:block hover:text-indigo-300 transition-all duration-300 hover:scale-125 ${
           isToggling ? "animate-spin-grow" : ""
         }`}
         aria-label="Switch to Dark Mode"
