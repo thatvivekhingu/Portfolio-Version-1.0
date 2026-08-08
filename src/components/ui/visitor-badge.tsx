@@ -39,10 +39,10 @@ export function VisitorBadge({ className = "" }: { className?: string }) {
       <span>
         {data ? (
           <>
-            <NumberTicker value={data.monthlyVisits} className="font-bold text-emerald-300" /> visitors this month
+            <NumberTicker value={data.totalVisits} className="font-bold text-emerald-300" /> real page views
           </>
         ) : (
-          "1,428 visitors this month"
+          "Live real page views"
         )}
       </span>
       {data && (
