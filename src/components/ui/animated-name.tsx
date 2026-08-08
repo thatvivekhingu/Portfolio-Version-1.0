@@ -37,7 +37,7 @@ export function AnimatedName({ className }: AnimatedNameProps) {
       rotateX: 0,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 12,
         stiffness: 200,
       },
