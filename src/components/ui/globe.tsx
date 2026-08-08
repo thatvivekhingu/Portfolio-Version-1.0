@@ -19,12 +19,12 @@ const GLOBE_CONFIG: COBEOptions = {
   width: 800,
   height: 800,
   onRender: () => {},
-  devicePixelRatio: 2,
+  devicePixelRatio: 1.25,
   phi: 4.6,
   theta: 0.3,
   dark: 0,
   diffuse: 0.5,
-  mapSamples: 22000,
+  mapSamples: 9000,
   mapBrightness: 1.2,
   baseColor: [1, 1, 1],
   markerColor: [34 / 255, 197 / 255, 94 / 255],
@@ -79,6 +79,12 @@ export function Globe({
     const theta = globeConfig.theta ?? 0.4;
     const isDark = resolvedTheme === "dark";
 
+    let isVisible = true;
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+    }, { threshold: 0.05 });
+    if (canvasRef.current) observer.observe(canvasRef.current);
+
     const onResize = () => {
       if (canvasRef.current) {
         width = canvasRef.current.offsetWidth;
@@ -93,6 +99,7 @@ export function Globe({
       width: width * 2,
       height: width * 2,
       onRender: (state) => {
+        if (!isVisible) return;
         if (!pointerInteracting.current) phi += 0.005;
         state.phi = phi + rs.get();
         state.width = width * 2;
@@ -155,6 +162,10 @@ export function Globe({
     let beamProgress = 0;
 
     const drawOverlay = () => {
+      if (!isVisible) {
+        overlayAnimId = requestAnimationFrame(drawOverlay);
+        return;
+      }
       const overlay = overlayRef.current;
       if (!overlay || width === 0) {
         overlayAnimId = requestAnimationFrame(drawOverlay);
@@ -163,7 +174,7 @@ export function Globe({
       const ctx = overlay.getContext("2d");
       if (!ctx) return;
 
-      const dpr = 2;
+      const dpr = 1.25;
       const W = width;
       if (overlay.width !== W * dpr) {
         overlay.width = W * dpr;
@@ -260,6 +271,7 @@ export function Globe({
 
     return () => {
       cancelAnimationFrame(overlayAnimId);
+      observer.disconnect();
       globe.destroy();
       window.removeEventListener("resize", onResize);
     };

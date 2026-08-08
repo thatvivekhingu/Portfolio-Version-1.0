@@ -2,12 +2,12 @@
 
 import { useEffect, useRef } from "react";
 
-function getDotCount(desktop = 1500, mobile = 250) {
+function getDotCount(desktop = 350, mobile = 80) {
   if (typeof window === "undefined") return desktop;
   return window.innerWidth < 768 ? mobile : desktop;
 }
 
-function AnimatedDots({ desktopDots = 1500, mobileDots = 250 }: { desktopDots?: number; mobileDots?: number }) {
+function AnimatedDots({ desktopDots = 350, mobileDots = 80 }: { desktopDots?: number; mobileDots?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -21,6 +21,20 @@ function AnimatedDots({ desktopDots = 1500, mobileDots = 250 }: { desktopDots?: 
     let width = 0;
     let height = 0;
     let resizeTimer: ReturnType<typeof setTimeout>;
+    let isVisible = true;
+
+    // Pause animation when hero is off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !animationId) {
+          lastTime = 0;
+          animationId = requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
 
     // Mouse tracking
     let mouseX = -9999;
@@ -61,7 +75,7 @@ function AnimatedDots({ desktopDots = 1500, mobileDots = 250 }: { desktopDots?: 
     let dots: Dot[] = [];
 
     function resize() {
-      const dpr = Math.min(window.devicePixelRatio, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
       width = canvas!.offsetWidth;
       height = canvas!.offsetHeight;
       canvas!.width = width * dpr;
@@ -104,6 +118,7 @@ function AnimatedDots({ desktopDots = 1500, mobileDots = 250 }: { desktopDots?: 
     let lastTime = 0;
 
     function animate(time: number) {
+      if (!isVisible) return;
       const dt = lastTime ? time - lastTime : 16;
       lastTime = time;
 
@@ -178,8 +193,6 @@ function AnimatedDots({ desktopDots = 1500, mobileDots = 250 }: { desktopDots?: 
         const widthChanged = window.innerWidth !== lastWidth;
         lastWidth = window.innerWidth;
         resize();
-        // Only reshuffle dots when width actually changes (e.g. orientation change).
-        // Mobile address-bar show/hide fires resize but only changes height — keep dots stable.
         if (widthChanged) {
           initDots();
         }
@@ -190,6 +203,7 @@ function AnimatedDots({ desktopDots = 1500, mobileDots = 250 }: { desktopDots?: 
     return () => {
       cancelAnimationFrame(animationId);
       clearTimeout(resizeTimer);
+      observer.disconnect();
       window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMouseMove);
     };
@@ -204,7 +218,7 @@ function AnimatedDots({ desktopDots = 1500, mobileDots = 250 }: { desktopDots?: 
   );
 }
 
-export function HeroConstellation({ desktopDots = 1500, mobileDots = 250 }: { desktopDots?: number; mobileDots?: number } = {}) {
+export function HeroConstellation({ desktopDots = 350, mobileDots = 80 }: { desktopDots?: number; mobileDots?: number } = {}) {
   return (
     <div className="absolute inset-0 pointer-events-none">
       <AnimatedDots desktopDots={desktopDots} mobileDots={mobileDots} />
