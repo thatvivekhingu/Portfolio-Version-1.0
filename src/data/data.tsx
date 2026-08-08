@@ -1,4 +1,4 @@
-import { IconHome, IconBrandGithub, IconBrush, IconBriefcase2, IconBrandLinkedin, IconMail, IconAward } from "@tabler/icons-react"
+import { IconHome, IconBrandGithub, IconBrush, IconBriefcase2, IconBrandLinkedin, IconMail, IconAward, IconFileText } from "@tabler/icons-react"
 
 export interface ProjectItem {
   title: string;
@@ -209,6 +209,11 @@ export const data = {
       name: "Education",
       link: "experience",
       icon: <IconBriefcase2 className="subpixel-antialiased h-5 w-5 text-zinc-500 hover:text-zinc-950 dark:text-zinc-300 hover:dark:text-zinc-50 hover:animate-wiggle animate-wiggle transition-colors duration-100" />,
+    },
+    {
+      name: "Resume",
+      link: "/resume",
+      icon: <IconFileText className="subpixel-antialiased h-5 w-5 text-zinc-500 hover:text-zinc-950 dark:text-zinc-300 hover:dark:text-zinc-50 hover:animate-wiggle animate-wiggle transition-colors duration-100" />,
     },
   ],
 

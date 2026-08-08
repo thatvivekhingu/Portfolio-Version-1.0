@@ -183,9 +183,7 @@ export default function Hero() {
                       <ShimmerBorder />
                     </a>
                     <a
-                      href="/resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="/resume"
                       onClick={() => playTapSound("chime")}
                       className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-cyan-500/40 bg-cyan-950/30 backdrop-blur-sm px-4 py-1.5 text-xs sm:text-sm font-semibold text-cyan-300 transition-all hover:text-white hover:border-cyan-400 hover:bg-cyan-900/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
                     >
