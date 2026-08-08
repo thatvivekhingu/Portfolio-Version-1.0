@@ -208,7 +208,7 @@ export const Footer = () => {
                         &copy; {new Date().getFullYear()} Vivek Hingu. All rights reserved.
                     </p>
                     <p className="text-xs text-muted-foreground leading-none">
-                        Built with ❤️ using React, Next.js and Tailwind
+                        Crafted with ❤️ by Vivek Hingu
                     </p>
                 </div>
             </div>

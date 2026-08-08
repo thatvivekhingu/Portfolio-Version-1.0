@@ -253,7 +253,7 @@ export function ProjectCard({ title, href, description, tags, image, video, thum
 
                         {/* Card Body */}
                         <CardHeader className="p-5 pb-2">
-                            <CardTitle className="text-lg font-bold tracking-tight group-hover:text-amber-400 transition-colors">
+                            <CardTitle className="text-lg font-bold tracking-tight group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                                 {title}
                             </CardTitle>
                         </CardHeader>
@@ -269,7 +269,7 @@ export function ProjectCard({ title, href, description, tags, image, video, thum
                                         <Badge
                                             key={tag}
                                             variant="secondary"
-                                            className="text-[11px] px-2 py-0.5 bg-muted/80 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
+                                            className="text-[11px] px-2 py-0.5 bg-muted/80 hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
                                         >
                                             {tag}
                                         </Badge>
@@ -279,7 +279,7 @@ export function ProjectCard({ title, href, description, tags, image, video, thum
                         </CardContent>
 
                         <CardFooter className="p-5 pt-3 border-t border-border/40 mt-4 flex items-center justify-between">
-                            <span className="text-xs font-medium text-amber-500 hover:text-amber-400 flex items-center gap-1 transition-colors">
+                            <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 flex items-center gap-1 transition-colors">
                                 <span>View Source Code</span>
                                 <IconExternalLink className="h-3.5 w-3.5" />
                             </span>
