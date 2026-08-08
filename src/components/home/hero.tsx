@@ -18,6 +18,7 @@ import {
   type Suffix,
 } from "@/components/ui/animated-name";
 import { VisitorBadge } from "@/components/ui/visitor-badge";
+import { ResumeModal } from "@/components/ui/resume-modal";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Tooltip,
@@ -31,6 +32,7 @@ export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
   const [phase, setPhase] = useState<Phase>("initial");
   const [suffix, setSuffix] = useState<Suffix>("hingu");
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout> | undefined;
@@ -182,14 +184,16 @@ export default function Hero() {
                       <IconArrowRight className="relative h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-1" />
                       <ShimmerBorder />
                     </a>
-                    <a
-                      href="/resume"
-                      onClick={() => playTapSound("chime")}
+                    <button
+                      onClick={() => {
+                        playTapSound("chime");
+                        setIsResumeOpen(true);
+                      }}
                       className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-cyan-500/40 bg-cyan-950/30 backdrop-blur-sm px-4 py-1.5 text-xs sm:text-sm font-semibold text-cyan-300 transition-all hover:text-white hover:border-cyan-400 hover:bg-cyan-900/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
                     >
                       <IconFileText className="relative h-3.5 w-3.5 sm:h-4 sm:w-4 text-cyan-400" />
                       <span className="relative">Resume</span>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </BlurFade>
@@ -197,6 +201,8 @@ export default function Hero() {
           </div>
         </BlurFade>
       </TooltipProvider>
+
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </div>
   );
 }
