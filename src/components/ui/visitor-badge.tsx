@@ -5,7 +5,6 @@ import { NumberTicker } from "@/components/ui/number-ticker";
 
 interface VisitorData {
   totalVisits: number;
-  monthlyVisits: number;
   activeNow: number;
   label: string;
 }
@@ -14,17 +13,28 @@ export function VisitorBadge({ className = "" }: { className?: string }) {
   const [data, setData] = useState<VisitorData | null>(null);
 
   useEffect(() => {
-    fetch("/api/visitor-count")
-      .then((res) => res.json())
-      .then((json) => setData(json))
-      .catch(() => {
-        setData({
-          totalVisits: 1248,
-          monthlyVisits: 1428,
-          activeNow: 3,
-          label: "1,428 visitors this month",
+    let sid = sessionStorage.getItem("vh_session_id");
+    if (!sid) {
+      sid = "sid_" + Math.random().toString(36).substring(2, 11) + Date.now().toString(36);
+      sessionStorage.setItem("vh_session_id", sid);
+    }
+
+    const fetchVisitorData = (isHeartbeat = false) => {
+      fetch(`/api/visitor-count?sid=${sid}${isHeartbeat ? "&heartbeat=true" : ""}`)
+        .then((res) => res.json())
+        .then((json) => setData(json))
+        .catch(() => {
+          // Silent fallback
         });
-      });
+    };
+
+    fetchVisitorData(false);
+
+    const interval = setInterval(() => {
+      fetchVisitorData(true);
+    }, 20000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -42,7 +52,7 @@ export function VisitorBadge({ className = "" }: { className?: string }) {
             <NumberTicker value={data.totalVisits} className="font-bold text-emerald-300" /> real page views
           </>
         ) : (
-          "Live real page views"
+          "Real stats loading..."
         )}
       </span>
       {data && (
